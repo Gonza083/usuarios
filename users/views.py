@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse("estas en el home")
+    return render(request, "home.html", {})
 
 def signup(request):
     return HttpResponse("estas en el signup")
@@ -11,5 +11,5 @@ def signup(request):
 def signin(request):
     return HttpResponse("estas en el signin")
 
-def sigout(request):
-    return HttpResponse("etas en el signout")
+def logout(request):
+    return HttpResponse("etas en el logout")
