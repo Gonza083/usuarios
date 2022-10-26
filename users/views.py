@@ -17,7 +17,7 @@ def signup(request):
                 user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
                 user.save()
                 login(request, user)
-                return redirect('task')
+                return redirect('home')
             except:
                 return render(request, 'signup.html', {
                     'error': 'Username already exists ',
@@ -29,7 +29,16 @@ def signup(request):
             })
 
 def signin(request):
-    return HttpResponse("estas en el signin")
+    if request.method == 'GET':
+        return render(request, 'signin.html', {'form': AuthenticationForm})
+    else:
+        user= authenticate(
+            request, username=request.POST['username'], password=request.POST['password'])
+    if user is None:
+        return render(request,'signin.html', {"form": AuthenticationForm, "error": "Username or password is incorrect."})
+    
+    login(request, user)
+    return redirect('home')
 
 def singout(request):
     logout(request)
